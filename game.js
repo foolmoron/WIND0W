@@ -3,7 +3,9 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 // audio
-var soundPlaceholder = new Howl({src: ['audio/placeholder.wav']});
+var soundGlass = new Howl({src: ['audio/glass.wav']});
+var soundGlassId;
+var soundBreak = new Howl({src: ['audio/break.wav']});
 document.addEventListener('keypress', (e) => soundPlaceholder.play());
 
 // mouse/touch
@@ -56,7 +58,8 @@ function update() {
             // reverse sort by id
             allClickedSquares = allClickedSquares.sort((a, b) => b.id - a.id);
             // delete square
-            squares.splice(squares.indexOf(allClickedSquares[0]), 1)
+            squares.splice(squares.indexOf(allClickedSquares[0]), 1);
+            soundBreak.play();
         }
     }
 
@@ -65,6 +68,7 @@ function update() {
         if (!currentSquare) {
             currentSquare = {id: squares.length, x: 0, y: 0, radius: 0, hue: Math.random() * 360};
             squares.push(currentSquare);
+            soundGlassId = soundGlass.play();
         }
         currentSquare.x = mousePos.x;
         currentSquare.y = mousePos.y;
@@ -75,6 +79,7 @@ function update() {
     if (!mouseDown) {
         mouseDownTime = 0;
         currentSquare = null;
+        soundGlass.stop(soundGlassId);
     }
 
     // canvas sizing
