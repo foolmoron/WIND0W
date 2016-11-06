@@ -3,9 +3,9 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 // audio
-var soundGlass = new Howl({src: ['audio/glass.wav']});
+var soundGlass = new Howl({src: ['audio/glass.mp3', 'audio/glass.wav']});
 var soundGlassId;
-var soundBreak = new Howl({src: ['audio/break.wav']});
+var soundBreak = new Howl({src: ['audio/break.mp3', 'audio/break.wav']});
 document.addEventListener('keypress', (e) => soundPlaceholder.play());
 
 // mouse/touch
@@ -20,6 +20,16 @@ document.addEventListener('mousemove', (e) => {
    mousePos = {x: e.clientX, y: e.clientY};
 });
 document.addEventListener('mouseup', (e) => {
+   mouseDown = false;
+});
+document.addEventListener('touchstart', (e) => {
+   mousePos = {x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY};
+   mouseDown = true;
+});
+document.addEventListener('touchmove', (e) => {
+   mousePos = {x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY};
+});
+document.addEventListener('touchend', (e) => {
    mouseDown = false;
 });
 
