@@ -31,6 +31,8 @@ var S = 100;
 var L = 70;
 var A = 0.6;
 
+var text = document.querySelectorAll('.text')[0];
+
 // update loop
 var prevTime = performance.now();
 var globalTime = 0;
@@ -42,6 +44,10 @@ function update() {
     // mouse up/down 
     if (mouseDown) {
         mouseDownTime += dt;
+        if (text) {
+            text.remove();
+            text = null;
+        }
     } else {
         if (mouseDownTime > 0 && mouseDownTime <= TOUCH_INTERVAL) {
             // click
